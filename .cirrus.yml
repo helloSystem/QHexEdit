@@ -24,7 +24,7 @@ task:
     - mogrify -resize 200x200 QHexEdit.app/Resources/QHexEdit.png
     - mogrify -background none -gravity center -extent 256x256 QHexEdit.app/Resources/QHexEdit.png
     - cp ../../upstream-license.txt QHexEdit.app/Resources/COPYING
-    - find QHexEdit.AppDir/
-    - zip --symlinks -r QHexEdit_FreeBSD.zip QHexEdit.AppDir/
+    - find QHexEdit.app/
+    - zip --symlinks -r QHexEdit_FreeBSD.zip QHexEdit.app/
     - case "$CIRRUS_BRANCH" in *pull/*) echo skipping since PR ;; * ) wget https://github.com/tcnksm/ghr/files/5247714/ghr.zip ; unzip ghr.zip ; rm ghr.zip ; ./ghr -replace -t "${GITHUB_TOKEN}" -u "${CIRRUS_REPO_OWNER}" -r "${CIRRUS_REPO_NAME}" -c "${CIRRUS_CHANGE_IN_REPO}" continuous "${CIRRUS_WORKING_DIR}"/qhexedit2/build/*zip ; esac
   only_if: $CIRRUS_TAG != 'continuous'
