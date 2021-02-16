@@ -10,7 +10,7 @@ task:
   name: freebsd-12-1-release-amd64
   stateful: false
   setup_script:
-    - pkg install -y curl wget zip pkgconf qt5-core qt5-widgets qt5-qmake qt5-buildtools imagemagick
+    - pkg install -y curl wget zip pkgconf qt5-core qt5-widgets qt5-qmake qt5-buildtools ImageMagick7-nox11
   test_script:
     - git clone https://github.com/Simsys/qhexedit2
     - cd qhexedit2
