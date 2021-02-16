@@ -10,7 +10,7 @@ task:
   name: freebsd-12-1-release-amd64
   stateful: false
   setup_script:
-    - pkg install -y curl wget zip pkgconf qt5-core qt5-widgets qt5-qmake qt5-buildtools
+    - pkg install -y curl wget zip pkgconf qt5-core qt5-widgets qt5-qmake qt5-buildtools imagemagick
   test_script:
     - git clone https://github.com/Simsys/qhexedit2
     - cd qhexedit2
@@ -21,6 +21,9 @@ task:
     - mkdir -p QHexEdit.app/Resources
     - cp qhexedit QHexEdit.app/QHexEdit
     - cp ../example/images/qhexedit32.png QHexEdit.app/Resources/QHexEdit.png
+    - mogrify -resize 200x200 QHexEdit.app/Resources/QHexEdit.png
+    - mogrify -background none -gravity center -extent 256x256 QHexEdit.app/Resources/QHexEdit.png
+    - cp ../../upstream-license.txt QHexEdit.app/Resources/COPYING
     - find QHexEdit.AppDir/
     - zip --symlinks -r QHexEdit_FreeBSD.zip QHexEdit.AppDir/
     - case "$CIRRUS_BRANCH" in *pull/*) echo skipping since PR ;; * ) wget https://github.com/tcnksm/ghr/files/5247714/ghr.zip ; unzip ghr.zip ; rm ghr.zip ; ./ghr -replace -t "${GITHUB_TOKEN}" -u "${CIRRUS_REPO_OWNER}" -r "${CIRRUS_REPO_NAME}" -c "${CIRRUS_CHANGE_IN_REPO}" continuous "${CIRRUS_WORKING_DIR}"/qhexedit2/build/*zip ; esac
